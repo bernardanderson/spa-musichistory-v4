@@ -1,0 +1,83 @@
+{
+  "song": [{
+    "title": "Legs",
+    "artist": "ZZTop",
+    "album": "Eliminator"
+  }, {
+    "title": "The Logical Song",
+    "artist": "Supertramp",
+    "album": "Breakfast in America"
+  }, {
+    "title": "Another Brick in the Wall",
+    "artist": "Pink Floyd",
+    "album": "The Wall"
+  }, {
+    "title": "Welcome to the Jungle",
+    "artist": "Guns & Roses",
+    "album": "Appetite for Destruction"
+  }, {
+    "title": "Ironic",
+    "artist": "Alanis Morisette",
+    "album": "Jagged Little Pill"
+  }, {
+    "title": "Enter Sandman",
+    "artist": "Metallica",
+    "album": "Metallica"
+  }, {
+    "title": "Enjoy the Silence",
+    "artist": "Depeche Mode",
+    "album": "Violator"
+  }, {
+    "title": "Maneater",
+    "artist": "Hall and Oates",
+    "album": "H2O"
+  }, {
+    "title": "Whip It",
+    "artist": "Devo",
+    "album": "Freedom of Choice"
+  }, {
+    "title": "Down Under",
+    "artist": "Men At Work",
+    "album": "Business As Usual"
+  }, {
+    "title": "Pump Up the Volume",
+    "artist": "Colourbox",
+    "album": "Colourbox"
+  }, {
+    "title": "Beat It",
+    "artist": "Michael Jackson",
+    "album": "Thriller"
+  }, {
+    "title": "Addicted to Love",
+    "artist": "Robert Palmer",
+    "album": "Riptide"
+  }, {
+    "title": "Need You Tonight",
+    "artist": "INXS",
+    "album": "Kick"
+  }, {
+    "title": "Tainted Love",
+    "artist": "Soft Cell",
+    "album": "Non-Stop Erotic Cabaret"
+  }, {
+    "title": "Bette Davis Eyes",
+    "artist": "Kim Carnes",
+    "album": "Mistaken Identity"
+  }, {
+    "title": "Hair of the Dog",
+    "artist": "Nazareth",
+    "album": "Hair of the Dog"
+  }, {
+    "title": "Star Star",
+    "artist": "The Rolling Stones",
+    "album": "Goats Head Soup"
+  }, {
+    "title": "Burning Down the House",
+    "artist": "Talking Heads",
+    "album": "Speaking in Tongues"
+  }, {
+    "title": "Devil in My Car",
+    "artist": "The B-52's",
+    "album": "Wild Planet"
+  }]
+}
