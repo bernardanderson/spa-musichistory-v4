@@ -12,7 +12,6 @@ var songHolder = document.getElementById("song-holder-list");
 function showViewForm() {
   mainAddForm.classList.add("hidden");
   mainViewForm.classList.add("hidden");
-
   mainViewForm.classList.remove("hidden");
 }
 
@@ -20,7 +19,6 @@ function showViewForm() {
 function showAddForm() {
   mainAddForm.classList.add("hidden");
   mainViewForm.classList.add("hidden");
-
   mainAddForm.classList.remove("hidden");
 }
 
@@ -30,9 +28,7 @@ function showAddForm() {
 function addSongsToViewMusic() {
   songHolder.innerHTML = "";
   for (var i = 0; i < songs.length; i++) {
-  var currentStringClean = songs[i].replace(/[|;$!%@"<()+,*]/g, "");
-  currentStringClean = currentStringClean.replace(/[>]/g, "-");
-  songHolder.innerHTML += "<li>" + currentStringClean + "</li>";
+    songHolder.innerHTML += `<li>${songs[i]}</li>`;
   };
 }
 
@@ -51,13 +47,22 @@ function addSongsToArray() {
   albumInput.value = "";
 }
 
+function addSongObjectToArray(sentSongsObject) {
+  for (var i = 0; i < sentSongsObject.length; i++) {
+    var currentDirtyString = `${sentSongsObject[i].title} > ${sentSongsObject[i].artist} on the album ${sentSongsObject[i].album}`;
+    var currentStringClean = currentDirtyString.replace(/[|;$!%@"<()+,*]/g, "");
+    currentStringClean = currentStringClean.replace(/[>]/g, "-");
+    songs.push(currentStringClean);
+  };
+}
+
 function parseJson(){
-  var songsObject = JSON.parse(this.responseText);
-  console.log(songsObject);
+  var songsObject = JSON.parse(this.responseText).song;
+  addSongObjectToArray(songsObject);
+  addSongsToViewMusic();
 }
 
 function getSongs() {
-
   var songsXHR = new XMLHttpRequest();
   songsXHR.addEventListener("load", parseJson);
   songsXHR.open("GET", "music.json");
@@ -65,9 +70,9 @@ function getSongs() {
 }
 
 getSongs();
-//addSongsToViewMusic();
-//showViewForm();
-//viewMusicLink.addEventListener("click", showViewForm);
-//addMusicLink.addEventListener("click", showAddForm);
-//addMusicButton.addEventListener("click", addSongsToArray);
+showViewForm();
+
+viewMusicLink.addEventListener("click", showViewForm);
+addMusicLink.addEventListener("click", showAddForm);
+addMusicButton.addEventListener("click", addSongsToArray);
 
