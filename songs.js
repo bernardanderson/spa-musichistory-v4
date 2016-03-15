@@ -3,6 +3,7 @@ var viewMusicLink = document.getElementById("view-music");
 var addMusicButton = document.getElementById("add-form-button");
 var mainViewForm = document.getElementById("main-view-form");
 var mainAddForm = document.getElementById("main-add-form");
+var moreButton = document.getElementById("more-button")
 
 var songs = [];
 
@@ -62,14 +63,14 @@ function parseJson(){
   addSongsToViewMusic();
 }
 
-function getSongs() {
+function getSongs(songNumber) {
   var songsXHR = new XMLHttpRequest();
   songsXHR.addEventListener("load", parseJson);
-  songsXHR.open("GET", "music.json");
+  songsXHR.open("GET", `songs-pt${songNumber}.json`);
   songsXHR.send();
 }
 
-getSongs();
+getSongs(1);
 showViewForm();
 
 viewMusicLink.addEventListener("click", showViewForm);
@@ -81,4 +82,8 @@ songHolder.addEventListener("click", function(clickEventObject) {
     clickEventObject.currentTarget.removeChild(clickEventObject.target.parentElement);
   };
   clickEventObject.stopPropagation();
+});
+
+moreButton.addEventListener("click", function(){
+  getSongs(2);
 });
