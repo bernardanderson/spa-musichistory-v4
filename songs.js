@@ -5,8 +5,10 @@ var mainViewForm = document.getElementById("main-view-form");
 var mainAddForm = document.getElementById("main-add-form");
 var moreButton = document.getElementById("more-button")
 
+// Empty array to hold the song information
 var songs = [];
 
+// Targets the <ol> that holds the songs 
 var songHolder = document.getElementById("song-holder-list");
 
 //This hides both view and add forms and then shows the viewForm
@@ -48,6 +50,8 @@ function addSongsToArray() {
   albumInput.value = "";
 }
 
+// This makes a string out of the song object info, cleans the string of any dirty 
+//  chars, replaces a > with a - and then pushes it into the array.
 function addSongObjectToArray(sentSongsObject) {
   for (var i = 0; i < sentSongsObject.length; i++) {
     var currentDirtyString = `${sentSongsObject[i].title} > ${sentSongsObject[i].artist} on the album ${sentSongsObject[i].album}`;
@@ -57,12 +61,16 @@ function addSongObjectToArray(sentSongsObject) {
   };
 }
 
+// This parses the Json response and then adds the songs to the song array and then
+//  adds it to the music view
 function parseJson(){
   var songsObject = JSON.parse(this.responseText).song;
   addSongObjectToArray(songsObject);
   addSongsToViewMusic();
 }
 
+// This calls the xml request and accepts a value so the same XHR can be used to
+//  get both song files.
 function getSongs(songNumber) {
   var songsXHR = new XMLHttpRequest();
   songsXHR.addEventListener("load", parseJson);
@@ -73,6 +81,7 @@ function getSongs(songNumber) {
 getSongs(1);
 showViewForm();
 
+// All of the event listeners for the app (this can be condensed into one eL)
 viewMusicLink.addEventListener("click", showViewForm);
 addMusicLink.addEventListener("click", showAddForm);
 addMusicButton.addEventListener("click", addSongsToArray);
