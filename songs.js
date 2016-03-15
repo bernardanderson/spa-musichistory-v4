@@ -3,37 +3,18 @@ var viewMusicLink = document.getElementById("view-music");
 var addMusicButton = document.getElementById("add-form-button");
 var mainViewForm = document.getElementById("main-view-form");
 var mainAddForm = document.getElementById("main-add-form");
+var moreButton = document.getElementById("more-button")
 
+// Empty array to hold the song information
 var songs = [];
 
-songs[songs.length] = "Legs > by Z*ZTop on the album Eliminator";
-songs[songs.length] = "The Logical Song > by Supertr@amp on the album Breakfast in America";
-songs[songs.length] = "Another Brick in the Wall > by Pink Floyd on the album The Wall";
-songs[songs.length] = "Welco(me to the Jungle > by Guns & Roses on the album Appetite for Destruction";
-songs[songs.length] = "Ironi!c > by Alanis Moris*ette on the album Jagged Little Pill";
-songs[songs.length] = "Enter Sand|man > by Metallica on the album Metallica";
-songs[songs.length] = "Enjoy the Silence > by Depeche Mode on the album Violator";
-songs[songs.length] = "Maneater > by Hall and Oates on the album H2O";
-songs[songs.length] = "Whip It > by Devo on the album Freedom of Choice";
-songs[songs.length] = "Down Under > by Men At W+ork on the album Business As Usual";
-songs[songs.length] = "Pump Up the Volume > by Colourbox on the album Colourbox";
-songs[songs.length] = "Beat It > by Michael Jackson on the album Thriller";
-songs[songs.length] = "Addicted to Love > by Robert Palmer on the album Riptide";
-songs[songs.length] = "Need You Tonight > by INXS on the album Kick";
-songs[songs.length] = "Tainted Love > by So,ft Cell on the album Non-Stop Erotic Cabaret";
-songs[songs.length] = "Bette Davis Eyes > by Kim Carnes on the album Mistaken Identity";
-songs[songs.length] = "Hair of the Dog > by Nazareth on the album Hair of the Dog";
-songs[songs.length] = "Star Star > by The Rolling Stones on the album Goats Head Soup";
-songs[songs.length] = "Burning Down the House > by Talking Heads on the album Speaking in Tongues";
-songs[songs.length] = "Devil in My Car > by The B-52's on the album Wild Planet";
-
+// Targets the <ol> that holds the songs 
 var songHolder = document.getElementById("song-holder-list");
 
 //This hides both view and add forms and then shows the viewForm
 function showViewForm() {
   mainAddForm.classList.add("hidden");
   mainViewForm.classList.add("hidden");
-
   mainViewForm.classList.remove("hidden");
 }
 
@@ -41,7 +22,6 @@ function showViewForm() {
 function showAddForm() {
   mainAddForm.classList.add("hidden");
   mainViewForm.classList.add("hidden");
-
   mainAddForm.classList.remove("hidden");
 }
 
@@ -51,9 +31,7 @@ function showAddForm() {
 function addSongsToViewMusic() {
   songHolder.innerHTML = "";
   for (var i = 0; i < songs.length; i++) {
-  var currentStringClean = songs[i].replace(/[|;$!%@"<()+,*]/g, "");
-  currentStringClean = currentStringClean.replace(/[>]/g, "-");
-  songHolder.innerHTML += "<li>" + currentStringClean + "</li>";
+    songHolder.innerHTML += `<li>${songs[i]}  <button class="dlt-song">Delete</button></li>`;
   };
 }
 
@@ -72,8 +50,49 @@ function addSongsToArray() {
   albumInput.value = "";
 }
 
-addSongsToViewMusic();
+// This makes a string out of the song object info, cleans the string of any dirty 
+//  chars, replaces a > with a - and then pushes it into the array.
+function addSongObjectToArray(sentSongsObject) {
+  for (var i = 0; i < sentSongsObject.length; i++) {
+    var currentDirtyString = `${sentSongsObject[i].title} > ${sentSongsObject[i].artist} on the album ${sentSongsObject[i].album}`;
+    var currentStringClean = currentDirtyString.replace(/[|;$!%@"<()+,*]/g, "");
+    currentStringClean = currentStringClean.replace(/[>]/g, "-");
+    songs.push(currentStringClean);
+  };
+}
+
+// This parses the Json response and then adds the songs to the song array and then
+//  adds it to the music view
+function parseJson(){
+  var songsObject = JSON.parse(this.responseText).song;
+  addSongObjectToArray(songsObject);
+  addSongsToViewMusic();
+}
+
+// This calls the xml request and accepts a value so the same XHR can be used to
+//  get both song files.
+function getSongs(songNumber) {
+  var songsXHR = new XMLHttpRequest();
+  songsXHR.addEventListener("load", parseJson);
+  songsXHR.open("GET", `songs-pt${songNumber}.json`);
+  songsXHR.send();
+}
+
+getSongs(1);
 showViewForm();
+
+// All of the event listeners for the app (this can be condensed into one eL)
 viewMusicLink.addEventListener("click", showViewForm);
 addMusicLink.addEventListener("click", showAddForm);
 addMusicButton.addEventListener("click", addSongsToArray);
+songHolder.addEventListener("click", function(clickEventObject) {
+  console.log(clickEventObject);
+  if (clickEventObject.target.className === "dlt-song") {
+    clickEventObject.currentTarget.removeChild(clickEventObject.target.parentElement);
+  };
+  clickEventObject.stopPropagation();
+});
+
+moreButton.addEventListener("click", function(){
+  getSongs(2);
+});
