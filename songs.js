@@ -28,7 +28,7 @@ function showAddForm() {
 function addSongsToViewMusic() {
   songHolder.innerHTML = "";
   for (var i = 0; i < songs.length; i++) {
-    songHolder.innerHTML += `<li>${songs[i]}</li>`;
+    songHolder.innerHTML += `<li>${songs[i]}  <button class="dlt-song">Delete</button></li>`;
   };
 }
 
@@ -75,4 +75,10 @@ showViewForm();
 viewMusicLink.addEventListener("click", showViewForm);
 addMusicLink.addEventListener("click", showAddForm);
 addMusicButton.addEventListener("click", addSongsToArray);
-
+songHolder.addEventListener("click", function(clickEventObject) {
+  console.log(clickEventObject);
+  if (clickEventObject.target.className === "dlt-song") {
+    clickEventObject.currentTarget.removeChild(clickEventObject.target.parentElement);
+  };
+  clickEventObject.stopPropagation();
+});
