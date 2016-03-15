@@ -1,0 +1,96 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>Music History</title>
+  </head>
+
+  <body>
+
+    <nav class="mainnav">
+      <ul>
+        <li><a href="#" id="view-music">View Music</a></li>
+        <li class="inner"><a href="#" id="add-music">Add Music</a></li>
+        <li><a href="#">Profile</a></li>
+      </ul>
+    </nav>
+    
+    <div id="main-add-form" class="add-form">
+      <button id="add-form-button">Add Info</button>
+      <input id="song-title-input" type="text" placeholder="Add A Song Title"/>
+      <input id="artist-input" type="text" placeholder="Add An Artist"/>
+      <input id="album-input" type="text" placeholder="Add An Album"/>
+    </div>
+
+    <div id="main-view-form" class="view-form">
+      <div class="leftmenu">
+        <div>
+          <label>Song Length:</label>
+              <input type="range" min="1" max="10">
+        </div>
+
+        <div>
+          <label for="artist">Artist:</label>
+          <select name="artist">
+            <option value="depechemode">Depeche Mode</option>
+            <option value="thebeatles">The Beatles</option>
+            <option value="ledzeppelin">Led Zeppelin</option>
+            <option value="philcollins">Pink Floyd</option>
+            <option value="acdc">AC/DC</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="album">Album:</label>
+            <select name="album">
+              <option value="depechemode-violator">Violator</option>
+              <option value="thebeatles-help">Help</option>
+              <option value="ledzeppelin1">Led Zeppelin 1</option>
+              <option value="philcollins-nojacket">The Wall</option>
+              <option value="acdc-backinblack">Back in Black</option>
+            </select>
+        </div>
+        
+        <div class="genre-menu">
+          <label for="genre">Genre:</label>
+          <nav class="genrelist-left">
+            <label class="genrelist">
+              <input type="checkbox" name="genre" value="rock"> Rock
+            </label>
+            <label class="genrelist">
+              <input type="checkbox" name="genre" value="pop"> Pop
+            </label>
+            <label class="genrelist">
+              <input type="checkbox" name="genre" value="blues"> Blues
+            </label>
+          </nav>
+          <nav class="genrelist-right">
+            <label class="genrelist">
+              <input type="checkbox" name="genre" value="classical"> Classical
+            </label>
+            <label class="genrelist">
+              <input type="checkbox" name="genre" value="jazz"> Jazz
+            </label>
+            <label class="genrelist">
+              <input type="checkbox" name="genre" value="hiphop"> Hip Hop
+            </label>
+          </nav>
+        </div>
+        
+        <p class="filter">Filter</p>
+      </div>
+
+      <div class="rightmenu">
+        <h2>Song List</h2>
+        <nav id="song-holder" class="favoritesong">
+          <ol id="song-holder-list">
+          </ol>
+        </nav>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="songs.js"></script>
+  </body>
+</html>
