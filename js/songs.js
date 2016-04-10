@@ -1,9 +1,10 @@
+"use strict";
+
 var addMusicLink = document.getElementById("add-music");
 var viewMusicLink = document.getElementById("view-music");
 var addMusicButton = document.getElementById("add-form-button");
 var mainViewForm = document.getElementById("main-view-form");
 var mainAddForm = document.getElementById("main-add-form");
-var moreButton = document.getElementById("more-button")
 
 // Empty array to hold the song information
 var songs = [];
@@ -29,10 +30,12 @@ function showAddForm() {
 //  and also replace > with -.  It then adds each song string to the 
 //  rightmenu DOM.
 function addSongsToViewMusic() {
-  songHolder.innerHTML = "";
-  for (var i = 0; i < songs.length; i++) {
-    songHolder.innerHTML += `<li>${songs[i]}  <button class="dlt-song">Delete</button></li>`;
-  };
+  // $("song-holder-list").html("");
+  let songString;
+  $(songs).each( (i, currentSong) => { 
+    songString += `<li>${currentSong} <button class="dlt-song">Delete</button></li>`;
+  });
+  $("#song-holder-list").html(songString);
 }
 
 //This gets the input.values from the input boxes and pushes it into the song array
@@ -58,41 +61,39 @@ function addSongObjectToArray(sentSongsObject) {
     var currentStringClean = currentDirtyString.replace(/[|;$!%@"<()+,*]/g, "");
     currentStringClean = currentStringClean.replace(/[>]/g, "-");
     songs.push(currentStringClean);
-  };
-}
-
-// This parses the Json response and then adds the songs to the song array and then
-//  adds it to the music view
-function parseJson(){
-  var songsObject = JSON.parse(this.responseText).song;
-  addSongObjectToArray(songsObject);
-  addSongsToViewMusic();
+  }
 }
 
 // This calls the xml request and accepts a value so the same XHR can be used to
-//  get both song files.
+//  get both song files. It parses the JSON data as well.
 function getSongs(songNumber) {
-  var songsXHR = new XMLHttpRequest();
-  songsXHR.addEventListener("load", parseJson);
-  songsXHR.open("GET", `songs-pt${songNumber}.json`);
-  songsXHR.send();
+  $.ajax({
+    url: `songs-pt${songNumber}.json`,
+    success: ( (jsonSongData) => {
+      addSongObjectToArray(jsonSongData.song);
+      addSongsToViewMusic();
+    })
+  });
 }
 
 getSongs(1);
 showViewForm();
 
 // All of the event listeners for the app (this can be condensed into one eL)
-viewMusicLink.addEventListener("click", showViewForm);
-addMusicLink.addEventListener("click", showAddForm);
-addMusicButton.addEventListener("click", addSongsToArray);
-songHolder.addEventListener("click", function(clickEventObject) {
-  console.log(clickEventObject);
-  if (clickEventObject.target.className === "dlt-song") {
-    clickEventObject.currentTarget.removeChild(clickEventObject.target.parentElement);
-  };
-  clickEventObject.stopPropagation();
+
+$("body").click( () => {
+  console.log("Body: ", $(event.target).html());
+  // if $("#view-music")
 });
 
-moreButton.addEventListener("click", function(){
-  getSongs(2);
-});
+// viewMusicLink.addEventListener("click", showViewForm);
+// addMusicLink.addEventListener("click", showAddForm);
+// addMusicButton.addEventListener("click", addSongsToArray);
+// songHolder.addEventListener("click", function(clickEventObject) {
+//   if (clickEventObject.target.className === "dlt-song") {
+//     clickEventObject.currentTarget.removeChild(clickEventObject.target.parentElement);
+//   };
+//   clickEventObject.stopPropagation();
+// });
+
+$("#more-button").click( () => {getSongs(2);} );
