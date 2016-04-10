@@ -1,29 +1,16 @@
 "use strict";
 
-var addMusicLink = document.getElementById("add-music");
-var viewMusicLink = document.getElementById("view-music");
-var addMusicButton = document.getElementById("add-form-button");
-var mainViewForm = document.getElementById("main-view-form");
-var mainAddForm = document.getElementById("main-add-form");
-
 // Empty array to hold the song information
 var songs = [];
 
-// Targets the <ol> that holds the songs 
-var songHolder = document.getElementById("song-holder-list");
-
-//This hides both view and add forms and then shows the viewForm
-function showViewForm() {
-  mainAddForm.classList.add("hidden");
-  mainViewForm.classList.add("hidden");
-  mainViewForm.classList.remove("hidden");
-}
-
-//This hides both view and add forms and then shows the addForm
-function showAddForm() {
-  mainAddForm.classList.add("hidden");
-  mainViewForm.classList.add("hidden");
-  mainAddForm.classList.remove("hidden");
+//This hides both view and add forms and then shows the addForm or the viewForm
+function showAddOrViewForm(addOrView) {
+  $("#main-add-form, #main-view-form").addClass("hidden");
+  if (addOrView === "add"){
+  $("#main-add-form").removeClass("hidden");
+  } else {
+    $("#main-view-form").removeClass("hidden");
+  }
 }
 
 //This uses regex to globally remove characters from the song strings
@@ -31,7 +18,7 @@ function showAddForm() {
 //  rightmenu DOM.
 function addSongsToViewMusic() {
   // $("song-holder-list").html("");
-  let songString;
+  let songString = "";
   $(songs).each( (i, currentSong) => { 
     songString += `<li>${currentSong} <button class="dlt-song">Delete</button></li>`;
   });
@@ -41,27 +28,17 @@ function addSongsToViewMusic() {
 //This gets the input.values from the input boxes and pushes it into the song array
 //  It then readds the music to the view Panel.
 function addSongsToArray() {
-  var songInput = document.getElementById("song-title-input");
-  var artistInput = document.getElementById("artist-input");
-  var albumInput = document.getElementById("album-input");
-  songs.push(`${songInput.value} > by ${artistInput.value} on the album ${albumInput.value}`);
-  
+  songs.push(`${$("#song-title-input").val()} - by ${$("#artist-input").val()} on the album ${$("#album-input").val()}`);
   addSongsToViewMusic();
-
-  songInput.value = "";
-  artistInput.value = "";
-  albumInput.value = "";
 }
 
 // This makes a string out of the song object info, cleans the string of any dirty 
 //  chars, replaces a > with a - and then pushes it into the array.
 function addSongObjectToArray(sentSongsObject) {
-  for (var i = 0; i < sentSongsObject.length; i++) {
-    var currentDirtyString = `${sentSongsObject[i].title} > ${sentSongsObject[i].artist} on the album ${sentSongsObject[i].album}`;
-    var currentStringClean = currentDirtyString.replace(/[|;$!%@"<()+,*]/g, "");
-    currentStringClean = currentStringClean.replace(/[>]/g, "-");
+  $(sentSongsObject).each( function(i, currentSong) {
+    var currentStringClean = `${currentSong.title} > ${currentSong.artist} on the album ${currentSong.album}`.replace(/[|;$!%@"<()+,*]/g, "").replace(/\>/g, "-");
     songs.push(currentStringClean);
-  }
+  });
 }
 
 // This calls the xml request and accepts a value so the same XHR can be used to
@@ -76,24 +53,22 @@ function getSongs(songNumber) {
   });
 }
 
-getSongs(1);
-showViewForm();
+// All of the event listeners for the app are attached to the body
+$("body").click( function() {
+  let eTarget = event.target;
 
-// All of the event listeners for the app (this can be condensed into one eL)
-
-$("body").click( () => {
-  console.log("Body: ", $(event.target).html());
-  // if $("#view-music")
+  if ($(eTarget).hasClass("dlt-song")){
+    $(eTarget).parent().remove();
+  } else if (eTarget.id === "more-button") {
+    getSongs(2);
+  } else if (eTarget.id === "view-music") {
+    showAddOrViewForm("");
+  } else if (eTarget.id === "add-music") {
+    showAddOrViewForm("add");
+  } else if (eTarget.id === "add-form-button") {
+    addSongsToArray();
+  }
 });
 
-// viewMusicLink.addEventListener("click", showViewForm);
-// addMusicLink.addEventListener("click", showAddForm);
-// addMusicButton.addEventListener("click", addSongsToArray);
-// songHolder.addEventListener("click", function(clickEventObject) {
-//   if (clickEventObject.target.className === "dlt-song") {
-//     clickEventObject.currentTarget.removeChild(clickEventObject.target.parentElement);
-//   };
-//   clickEventObject.stopPropagation();
-// });
-
-$("#more-button").click( () => {getSongs(2);} );
+getSongs(1);
+showAddOrViewForm("");
