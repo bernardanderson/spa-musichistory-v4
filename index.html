@@ -3,96 +3,146 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>Music History</title>
   </head>
 
   <body>
-
-    <nav class="mainnav">
-      <ul>
-        <li><a href="#" id="view-music">View Music</a></li>
-        <li class="inner"><a href="#" id="add-music">Add Music</a></li>
-        <li><a href="#">Profile</a></li>
-      </ul>
-    </nav>
-    
-    <div id="main-add-form" class="add-form">
-      <button id="add-form-button">Add Info</button>
-      <input id="song-title-input" type="text" placeholder="Add A Song Title"/>
-      <input id="artist-input" type="text" placeholder="Add An Artist"/>
-      <input id="album-input" type="text" placeholder="Add An Album"/>
-    </div>
-
-    <div id="main-view-form" class="view-form">
-      <div class="leftmenu">
-        <div>
-          <label>Song Length:</label>
-              <input type="range" min="1" max="10">
+  <!-- Start of Navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Music History</a>
+          <ul class="nav navbar-nav">
+            <li><a href="#" id="view-music">View Music</a></li>
+            <li><a href="#" id="add-music">Add Music</a></li>
+            <li><a href="#">Profile</a></li>
+          </ul>
         </div>
+      </nav>
+  <!-- End of Navbar -->
 
-        <div>
-          <label for="artist">Artist:</label>
-          <select name="artist">
-            <option value="depechemode">Depeche Mode</option>
-            <option value="thebeatles">The Beatles</option>
-            <option value="ledzeppelin">Led Zeppelin</option>
-            <option value="philcollins">Pink Floyd</option>
-            <option value="acdc">AC/DC</option>
-          </select>
+  <!-- Start of Add Music Form -->
+      <div id="main-add-form" class="add-form">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default left-menu ">
+              <div class="panel-heading">Add New Music</div>
+              <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                <input id="song-title-input" class="form-control" type="text" placeholder="Add A Song Title"/>
+                </div>
+                <div class="col-md-3">
+                <input id="artist-input" class="form-control" type="text" placeholder="Add An Artist"/>
+                </div>
+                <div class="col-md-3">
+                <input id="album-input" class="form-control" type="text" placeholder="Add An Album"/>
+                </div>
+                <a href="#" id="add-form-button" class="btn btn-default" role="button">Add Music</a>
+              </div>
+            </div>
+          </div>
         </div>
+        </div>
+        </div>
+  <!-- End of Add Music Form -->
 
-        <div>
-          <label for="album">Album:</label>
-            <select name="album">
-              <option value="depechemode-violator">Violator</option>
-              <option value="thebeatles-help">Help</option>
-              <option value="ledzeppelin1">Led Zeppelin 1</option>
-              <option value="philcollins-nojacket">The Wall</option>
-              <option value="acdc-backinblack">Back in Black</option>
-            </select>
+  <!-- Start of Main View Form -->
+    <!-- Start of Music Controls Form -->
+      <div id="main-view-form" class="view-form">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="col-md-4">
+            <div class="panel panel-default left-menu">
+              <div class="panel-heading">Song Controls</div>
+              <div class="panel-body">
+
+              <label>Song Length:</label>
+                <input type="range" min="1" max="10">
+                <div class="row col-center">
+                  <select class="song-controls btn btn-default col-md-10" name="artist">
+                    <option value="" disabled selected>Choose Artist</option>
+                    <option value="depechemode">Depeche Mode</option>
+                    <option value="thebeatles">The Beatles</option>
+                    <option value="ledzeppelin">Led Zeppelin</option>
+                    <option value="philcollins">Pink Floyd</option>
+                    <option value="acdc">AC/DC</option>
+                  </select>
+                </div>
+
+                <div class="row col-center">
+                  <select class="song-controls btn btn-default col-md-10" name="album">
+                    <option value="" disabled selected>Choose Album</option>
+                    <option value="depechemode-violator">Violator</option>
+                    <option value="thebeatles-help">Violator</option>
+                    <option value="ledzeppelin1">Led Zeppelin 1</option>
+                    <option value="philcollins-nojacket">The Wall</option>
+                    <option value="acdc-backinblack">Back in Black</option>
+                  </select>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="genrelist checkbox-inline col-md-3">
+                      <input type="checkbox" value="">Rock
+                    </label>
+                    <label class="genrelist checkbox-inline col-md-3">
+                      <input type="checkbox" value="">Blues
+                    </label>
+                    <label class="genrelist checkbox-inline col-md-4">
+                      <input type="checkbox" value="">HipHop
+                    </label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="genrelist checkbox-inline col-md-3">
+                      <input type="checkbox" value="">Pop
+                    </label>
+                    <label class="genrelist checkbox-inline col-md-3">
+                      <input type="checkbox" value="">Jazz
+                    </label>
+                    <label class="genrelist checkbox-inline col-md-3">
+                      <input type="checkbox" value="">Classical
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            <div class="span7 text-center">
+              <button class="filter btn btn-default" role="button">Filter</button>
+            </div>
+          </div>
         </div>
-        
-        <div class="genre-menu">
-          <label for="genre">Genre:</label>
-          <nav class="genrelist-left">
-            <label class="genrelist">
-              <input type="checkbox" name="genre" value="rock"> Rock
-            </label>
-            <label class="genrelist">
-              <input type="checkbox" name="genre" value="pop"> Pop
-            </label>
-            <label class="genrelist">
-              <input type="checkbox" name="genre" value="blues"> Blues
-            </label>
-          </nav>
-          <nav class="genrelist-right">
-            <label class="genrelist">
-              <input type="checkbox" name="genre" value="classical"> Classical
-            </label>
-            <label class="genrelist">
-              <input type="checkbox" name="genre" value="jazz"> Jazz
-            </label>
-            <label class="genrelist">
-              <input type="checkbox" name="genre" value="hiphop"> Hip Hop
-            </label>
-          </nav>
+    <!-- End of Music Controls Form -->
+
+    <!-- Start of Music View Form -->
+            <div class="col-md-8">
+              <div class="panel panel-default right-menu">
+                <div class="panel-heading">Song List</div>
+                <div class="panel-body">
+                  <nav id="song-holder" class="favoritesong">
+                    <ol id="song-holder-list"></ol>
+                  </nav>
+                  <div class="span7 text-center">
+                    <button id="more-button" class="btn btn-default" role="button">Show More Music</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+    <!-- End of Music View Form -->
+          </div>
         </div>
-        
-        <p class="filter">Filter</p>
       </div>
+  <!-- End of Main View Form -->
 
-      <div class="rightmenu">
-        <h2>Song List</h2>
-        <nav id="song-holder" class="favoritesong">
-          <ol id="song-holder-list">
-          </ol>
-          <p id="more-button">More ></p>
-        </nav>
 
-      </div>
-    </div>
-    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/songs.js"></script>
+      <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="js/songs.js"></script>
+
   </body>
 </html>
