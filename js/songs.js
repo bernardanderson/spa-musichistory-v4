@@ -17,10 +17,16 @@ function showAddOrViewForm(addOrView) {
 //  and also replace > with -.  It then adds each song string to the 
 //  rightmenu DOM.
 function addSongsToViewMusic() {
-  // $("song-holder-list").html("");
   let songString = "";
   $(songs).each( (i, currentSong) => { 
-    songString += `<li>${currentSong} <button class="dlt-song">Delete</button></li>`;
+    songString += `<div class="row">`;
+    songString += `<div class="col-xs-1">`;
+    songString += `<span class="glyphicon glyphicon-trash dlt-song" aria-hidden="true"></span></li>`;
+    songString += `</div>`;
+    songString += `<div class="col-xs-10">`;
+    songString += `<li>${currentSong} `;
+    songString += `</div>`;
+    songString += `</div>`;
   });
   $("#song-holder-list").html(songString);
 }
@@ -45,7 +51,7 @@ function addSongObjectToArray(sentSongsObject) {
 //  get both song files. It parses the JSON data as well.
 function getSongs(songNumber) {
   $.ajax({
-    url: `songs-pt${songNumber}.json`,
+    url: `json/songs-pt${songNumber}.json`,
     success: ( (jsonSongData) => {
       addSongObjectToArray(jsonSongData.song);
       addSongsToViewMusic();
@@ -58,7 +64,7 @@ $("body").click( function() {
   let eTarget = event.target;
 
   if ($(eTarget).hasClass("dlt-song")){
-    $(eTarget).parent().remove();
+    $(eTarget).parent().parent().remove();
   } else if (eTarget.id === "more-button") {
     getSongs(2);
   } else if (eTarget.id === "view-music") {
