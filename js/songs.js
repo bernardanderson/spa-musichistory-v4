@@ -34,26 +34,39 @@ function addSongsToViewMusic() {
 //This gets the input.values from the input boxes and pushes it into the song array
 //  It then readds the music to the view Panel.
 function addSongsToArray() {
-  songs.push(`${$("#song-title-input").val()} - by ${$("#artist-input").val()} on the album ${$("#album-input").val()}`);
-  addSongsToViewMusic();
+  console.log("It's In");
+  let newSong = {
+    "album": $("#album-input").val(),
+    "artist": $("#artist-input").val(),
+    "title": $("#song-title-input").val()
+  };
+  $.ajax({
+    url: `https://blazing-fire-8024.firebaseio.com/song/.json`,
+    type: `POST`,
+    data: JSON.stringify(newSong)
+  }).done(function() {
+    getSongs();
+  })
+  // songs.push(`${$("#song-title-input").val()} - by ${$("#artist-input").val()} on the album ${$("#album-input").val()}`);
+  // addSongsToViewMusic();
 }
 
 // This makes a string out of the song object info, cleans the string of any dirty 
 //  chars, replaces a > with a - and then pushes it into the array.
 function addSongObjectToArray(sentSongsObject) {
-  $(sentSongsObject).each( function(i, currentSong) {
-    var currentStringClean = `${currentSong.title} > ${currentSong.artist} on the album ${currentSong.album}`.replace(/[|;$!%@"<()+,*]/g, "").replace(/\>/g, "-");
-    songs.push(currentStringClean);
-  });
+  $.each(sentSongsObject, function(i, currentSong) {
+      var currentStringClean = `${currentSong.title} > ${currentSong.artist} on the album ${currentSong.album}`.replace(/[|;$!%@"<()+,*]/g, "").replace(/\>/g, "-");
+      songs.push(currentStringClean);
+  })
 }
 
 // This calls the xml request and accepts a value so the same XHR can be used to
 //  get both song files. It parses the JSON data as well.
-function getSongs(songNumber) {
+function getSongs() {
   $.ajax({
-    url: `json/songs-pt${songNumber}.json`,
+    url: `https://blazing-fire-8024.firebaseio.com/song.json`,
     success: ( (jsonSongData) => {
-      addSongObjectToArray(jsonSongData.song);
+      addSongObjectToArray(jsonSongData);
       addSongsToViewMusic();
     })
   });
