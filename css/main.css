@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -6,8 +5,8 @@
 body {
   font-family: "Arial";
   background-color: white;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 ol {
@@ -24,7 +23,7 @@ ol {
 }
 
 #song-holder {
-  height: 45vh;
+  height: 65vh;
 }
 
 #song-holder {

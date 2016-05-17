@@ -16,7 +16,6 @@
           <ul class="nav navbar-nav">
             <li><a href="#" id="view-music">View Music</a></li>
             <li><a href="#" id="add-music">Add Music</a></li>
-            <li><a href="#">Profile</a></li>
           </ul>
         </div>
       </nav>
@@ -29,23 +28,23 @@
             <div class="panel panel-default left-menu ">
               <div class="panel-heading">Add New Music</div>
               <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-md-offset-1">
-                <input id="song-title-input" class="form-control" type="text" placeholder="Add A Song Title"/>
+                <div class="row">
+                  <div class="col-md-3 col-md-offset-1">
+                    <input id="song-title-input" class="form-control" type="text" placeholder="Add A Song Title"/>
+                  </div>
+                  <div class="col-md-3">
+                    <input id="artist-input" class="form-control" type="text" placeholder="Add An Artist"/>
+                  </div>
+                  <div class="col-md-3">
+                    <input id="album-input" class="form-control" type="text" placeholder="Add An Album"/>
+                  </div>
+                  <a href="#" id="add-form-button" class="btn btn-default" role="button">Add Music</a>
                 </div>
-                <div class="col-md-3">
-                <input id="artist-input" class="form-control" type="text" placeholder="Add An Artist"/>
-                </div>
-                <div class="col-md-3">
-                <input id="album-input" class="form-control" type="text" placeholder="Add An Album"/>
-                </div>
-                <a href="#" id="add-form-button" class="btn btn-default" role="button">Add Music</a>
               </div>
             </div>
           </div>
         </div>
-        </div>
-        </div>
+      </div>
   <!-- End of Add Music Form -->
 
   <!-- Start of Main View Form -->
@@ -59,7 +58,7 @@
               <div class="panel-heading">Song Controls</div>
               <div class="panel-body">
 
-              <label>Song Length:</label>
+                <label>Song Length:</label>
                 <input type="range" min="1" max="10">
                 <div class="row col-center">
                   <select class="song-controls btn btn-default col-md-10" name="artist">
@@ -128,22 +127,10 @@
                     <ol id="song-holder-list"></ol>
                   </nav>
                 </div>
-            <div class="row edit-holder hidden">
-              <div class="col-md-11 col-md-offset-1">
-              <h4>Edit Songs</h4>
-              <input class="col-md-3 edit-input-title" type="text" placeholder="Song Text">
-              <input class="col-md-3 edit-input-artist" type="text" placeholder="Artist Text">
-              <input class="col-md-3 edit-input-album" type="text" placeholder="Album Text">
-              <input class="hidden-id-holder hidden" type="text">
-              <span class="glyphicon glyphicon-floppy-disk save-edit" aria-hidden="true"></span>
               </div>
-                </div>
-                </div>
-              </div>
-
             </div>
-    <!-- End of Music View Form -->
           </div>
+    <!-- End of Music View Form -->
         </div>
       </div>
   <!-- End of Main View Form -->
