@@ -30,8 +30,9 @@ function addSongsToViewMusic(sentSongs) {
   let songString = "";
   $.each(sentSongs, (i, currentSong) => { 
     songString += `<div class="row">`;
-    songString += `<div class="col-xs-1">`;
-    songString += `<span class="glyphicon glyphicon-trash dlt-song" aria-hidden="true"></span></li>`;
+    songString += `<div class="col-xs-2">`;
+    songString += `<span class="glyphicon glyphicon-trash dlt-song" aria-hidden="true"></span>`;
+    songString += `<span class="glyphicon glyphicon-edit edit-song" aria-hidden="true"></span>`;
     songString += `</div>`;
     songString += `<div class="col-xs-10">`;
     songString += `<li db-key="${i}">`; // Gives each <li> song item a special key based on the database key
@@ -101,6 +102,44 @@ function deleteSongs(sentETarget) {
   });
 }
 
+function editSong(sentETarget) {
+  let keyOfDbEntry = ($(sentETarget).parent().siblings().children().attr("db-key"));
+  $.ajax({
+    url: `https://blazing-fire-8024.firebaseio.com/song/${keyOfDbEntry}.json`,
+    type: `GET`,
+    success: ( (jsonSongData) => {
+      console.log(jsonSongData);
+      $(".edit-holder").removeClass("hidden");
+      $(".edit-input-title").val(jsonSongData.title);
+      $(".edit-input-artist").val(jsonSongData.artist);
+      $(".edit-input-album").val(jsonSongData.album);
+      $(".hidden-id-holder").val(keyOfDbEntry);
+    })
+  });
+}
+
+function saveSong() {
+  let editedID = $(".hidden-id-holder").val();
+  var editedObject = {
+    "title": $(".edit-input-title").val(),
+    "artist": $(".edit-input-artist").val(),
+    "album": $(".edit-input-album").val()
+  }
+
+  $(".edit-holder").addClass("hidden");
+
+  $.ajax({
+    url: `https://blazing-fire-8024.firebaseio.com/song/${editedID}.json`,
+    type: `PUT`,
+    data: JSON.stringify(editedObject)
+  }).done(function(newPostKey) {
+    console.log(newPostKey);
+    console.log("It posted");
+
+  });
+}
+
+
 // All of the event listeners for the app are attached to the body
 $("body").click( function(event) {
   let eTarget = event.target;
@@ -113,6 +152,10 @@ $("body").click( function(event) {
   } else if (eTarget.id === "add-form-button") {
     showAddOrViewForm(null);
     addSongsToArray();
+  } else if ($(eTarget).hasClass("edit-song")) {
+    editSong(eTarget);
+  } else if ($(eTarget).hasClass("save-edit")) {
+    saveSong(eTarget);
   }
 });
 

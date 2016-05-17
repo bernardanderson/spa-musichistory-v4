@@ -20,7 +20,7 @@ ol {
 }
 
 .left-menu, .right-menu {
-  height: 65vh;
+  height: 80vh;
 }
 
 #song-holder {
@@ -33,8 +33,12 @@ ol {
   margin-bottom: 5px;
 }
 
-.filter:hover, .dlt-song:hover, #more-button:hover {
+.filter:hover, .dlt-song:hover, .edit-song:hover, .save-edit:hover, #more-button:hover{
   cursor: pointer;
+}
+
+.dlt-song, .edit-song, .save-edit {
+  margin: 5px;
 }
 
 .hidden{
